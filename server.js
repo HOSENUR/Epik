@@ -1,12 +1,16 @@
 require("dotenv").config({ path: "./.env" });
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 
 connectDB();
 
 app.use(express.json());
+app.use(cors({
+  origin: process.env.CLIENT_URL
+}));
 
 app.get("/", (req, res, next) => {
   res.send("Api running");
